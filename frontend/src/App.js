@@ -1,0 +1,31 @@
+import React, { Component } from "react";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import Check_rest_name from "./Resturant/Check_rest_name.jsx";
+import Search_Resturant from "./Resturant/Search_Resturant.jsx";
+import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom";
+
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App">
+
+        <Route
+          path="/" exact
+          render = {(props) => <Search_Resturant {...props} />}
+        />
+
+     <Route
+          path="/:id" exact
+          render = {(props) => <Check_rest_name {...props} />}
+        />
+
+     
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default App;
