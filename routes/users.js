@@ -4,7 +4,8 @@ const router = express.Router();
 
 
 
-router.post('/resturant_id', db.createComment);
+router.post('/:restaurant_id', db.createComment);
+router.get('/:restaurant_id/comments', db.getComments)
 
 
 module.exports = router;

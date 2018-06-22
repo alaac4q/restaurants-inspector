@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
-import Check_rest_name from "./Resturant/Check_rest_name.jsx";
-import Search_Resturant from "./Resturant/Search_Resturant.jsx";
+import Check_rest_name from "./Restaurant/Check_rest_name.jsx";
+import Search_Restaurant from "./Restaurant/Search_Restaurant.jsx";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 
@@ -13,10 +13,10 @@ class App extends Component {
 
         <Route
           path="/" exact
-          render = {(props) => <Search_Resturant {...props} />}
+          render = {(props) => <Search_Restaurant {...props} />}
         />
 
-     <Route
+        <Route
           path="/:id" exact
           render = {(props) => <Check_rest_name {...props} />}
         />
