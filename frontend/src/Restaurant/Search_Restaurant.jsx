@@ -11,7 +11,9 @@ class Search_Restaurant extends React.Component {
     this.state = {
       restaurants: [],
       violations: [],
-      restaurant_name: ""
+      restaurant_name: "",
+      rest:[]
+
     };
   }
 
@@ -33,7 +35,21 @@ class Search_Restaurant extends React.Component {
       });
   };
 
+  componentDidMount(){
+    axios
+    .get(
+      `https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT 
+       DISTINCT camis,dba WHERE camis BETWEEN '30075445' AND '50079829'`
+    )
+    .then(res => {
+      this.setState({
+        rest: res.data
+      });
+    });
+};
+  
   render() {
+    console.log(this.state.rest)
     return (
       <div className="mainSearch">
         {/* <input 
@@ -52,10 +68,10 @@ class Search_Restaurant extends React.Component {
                 {" "}
                 <Link to={`/${restaurant.camis}`}>{restaurant.dba} </Link>{" "}
               </div>
-              <div>{restaurant.building}</div>
-              <div>{restaurant.street} </div>
-              <div>{restaurant.boro}, NY </div>
-              <div>
+              <div>{restaurant.building}
+                   {restaurant.street}
+                   {restaurant.boro}, NY
+              
                 {restaurant.zipcode} {"     "}{" "}
               </div>
               <div> {restaurant.cuisine_description}</div>

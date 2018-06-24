@@ -25,7 +25,7 @@ const createComment = (req, res) => {
 
 const getComments = (req, res) => {
   db.any(
-    "SELECT comment_title, comment, comment_date FROM Forum_Comments WHERE restaurant_id = ${restaurant_id}", 
+    "SELECT comment_title, comment, comment_date FROM Forum_Comments WHERE restaurant_id = ${restaurant_id} ORDER BY comment_date DESC", 
     {restaurant_id: req.params.restaurant_id})
       .then(data =>
         res.status(200).json({

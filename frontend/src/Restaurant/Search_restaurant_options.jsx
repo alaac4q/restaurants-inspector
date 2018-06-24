@@ -13,7 +13,8 @@ class Search_restaurant_options extends React.Component {
       restaurant_name: "",
       boro: "",
       zipcode: "",
-      cuisine_description: ""
+      cuisine_description: "",
+      restaurantsList: []
     };
   }
 
@@ -35,7 +36,11 @@ class Search_restaurant_options extends React.Component {
       add.push(`zipcode= "${this.state.zipcode}"`);
     }
     if (this.state.cuisine_description) {
-      add.push(`cuisine_description= "${this.state.cuisine_description}"`);
+      add.push(
+        `cuisine_description= "${this.state.cuisine_description
+          .slice(0, 1)
+          .toUpperCase() + this.state.cuisine_description.slice(1)}"`
+      );
     }
     query += add.join(" and ");
 
@@ -43,10 +48,21 @@ class Search_restaurant_options extends React.Component {
     console.log(query);
   }
 
+  componentDidMount() {
+    axios
+      .get(
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba, phone WHERE camis BETWEEN '41416920' AND '41416940'"
+      )
+      .then(res => {
+        this.setState({
+        restaurantList: res.data.map(resturant => <option value = {resturant.dba} /> )
+        });
+      });
+  }
+
   handleSubmit = e => {
     let query = this.buildQuery();
     axios.get(query).then(res => {
-      console.log(res);
       this.setState({
         restaurants: res.data
       });
@@ -54,6 +70,8 @@ class Search_restaurant_options extends React.Component {
   };
 
   render() {
+  //  console.log(this.state.restaurantList)
+   
     return (
       <div className="App">
         <input
@@ -62,7 +80,13 @@ class Search_restaurant_options extends React.Component {
           placeholder="restaurant name"
           value={this.state.restaurant_name}
           onChange={this.handleChange}
+          list="dataList1"
         />
+
+        <datalist id="dataList1">
+        {this.state.restaurantList}
+        </datalist>
+
         <input
           type="text"
           name="boro"
@@ -87,12 +111,18 @@ class Search_restaurant_options extends React.Component {
         />
 
         <button onClick={this.handleSubmit}>{"    "}</button>
-        <ul className = "list">
+        <ul className="list">
           {this.state.restaurants.map(restaurant => (
-            <li key={restaurant.camis}>
-              <Link to={`/${restaurant.camis}`}> {restaurant.dba} </Link>
-              {restaurant.building} {restaurant.street} {restaurant.boro}, NY{" "}
-              {restaurant.zipcode} {"     "} {restaurant.cuisine_description}
+            <li className="container" key={restaurant.camis}>
+              <div>
+                <Link to={`/${restaurant.camis}`}>{restaurant.dba} </Link>
+              </div>
+              <div>
+                {restaurant.building} {restaurant.street}
+              </div>
+              <div>{restaurant.boro}, NY</div>
+              <div>{restaurant.zipcode}</div>
+              <div>{restaurant.cuisine_description}</div>
             </li>
           ))}
         </ul>

@@ -19,11 +19,12 @@ body .App {
   list-style: none;
 }
 
-.list .flex-container{
-  width: 100px;
+.list .container{
+  width: 900px;
   margin: 10px;
-  text-align: center;
-  line-height: 75px;
+  display: inline-flex ;
+  flex-direction: row;
+
 }
 
 body input {
@@ -64,3 +65,9 @@ button img {
   height: 20px;
   width: 35px;
 }
+
+.container > div {
+  background-color: #f1f1f1;
+
+}
+
