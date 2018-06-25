@@ -29,13 +29,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 // app.use(express.static(path.join(__dirname, "public"))); // development route
 
+app.use(express.static(path.join(__dirname, 'client/build')));
 /* production routes */
-app.use(express.static(path.join(__dirname, 'client/build'))); 
+// app.use(express.static(path.join(__dirname, 'client/build'))); 
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'));
+// });
+
+app.use("/users", users);
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
-app.use("/users", users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
