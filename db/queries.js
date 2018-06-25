@@ -45,8 +45,5 @@ module.exports = {
 };
 
 
- // production code
-  // "scripts": {
-  //   "start": "node ./bin/www",
-  //   "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-  // },
+
+
