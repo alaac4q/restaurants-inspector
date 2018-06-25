@@ -1,10 +1,4 @@
-DROP DATABASE IF EXISTS restaurant;
-CREATE DATABASE restaurant;
-\c restaurant;
 
-
-DROP TABLE Forum_Comments
-CASCADE;
 CREATE Table Forum_Comments
 (
     comment_id SERIAL UNIQUE ,

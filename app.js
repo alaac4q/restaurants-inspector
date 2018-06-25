@@ -27,7 +27,13 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public"))); // development route
+
+/* production routes */
+app.use(express.static(path.join(__dirname, 'client/build'))); 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.use("/users", users);
 
