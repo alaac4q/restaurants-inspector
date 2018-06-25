@@ -16,5 +16,3 @@ CREATE Table Forum_Comments
 );
 
 
-INSERT INTO Forum_Comments (restaurant_id,comment_title,comment,comment_date)
-VALUES('41416921','lololol','tttt','02/02/2018');

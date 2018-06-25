@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
-import Check_rest_name from "./Check_rest_name.jsx";
-import ReactDOM from "react-dom";
+
 
 class Search_restaurant_options extends React.Component {
   constructor() {
@@ -14,13 +13,41 @@ class Search_restaurant_options extends React.Component {
       boro: "",
       zipcode: "",
       cuisine_description: "",
-      restaurantsList: []
+      restaurantsList: [],
+      cuisine_descriptionList: []
     };
   }
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  componentDidMount() {
+    axios
+      .get(
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba"
+      )
+      .then(res => {
+        this.setState({
+          restaurantList: res.data.map(resturant => (
+            <option value={resturant.dba} />
+          ))
+        });
+      });
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba"
+      )
+      .then(res => {
+        this.setState({
+          cuisine_descriptionList: res.data.map(resturant => (
+            <option value={resturant.cuisine_description} />
+          ))
+        });
+      });
+  }
 
   buildQuery() {
     let add = [];
@@ -48,18 +75,6 @@ class Search_restaurant_options extends React.Component {
     console.log(query);
   }
 
-  componentDidMount() {
-    axios
-      .get(
-        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba, phone WHERE camis BETWEEN '41416920' AND '41416940'"
-      )
-      .then(res => {
-        this.setState({
-        restaurantList: res.data.map(resturant => <option value = {resturant.dba} /> )
-        });
-      });
-  }
-
   handleSubmit = e => {
     let query = this.buildQuery();
     axios.get(query).then(res => {
@@ -70,64 +85,67 @@ class Search_restaurant_options extends React.Component {
   };
 
   render() {
-  //  console.log(this.state.restaurantList)
-   
     return (
       <div className="App">
-        <input
-          type="text"
-          name="restaurant_name"
-          placeholder="restaurant name"
-          value={this.state.restaurant_name}
-          onChange={this.handleChange}
-          list="dataList1"
-        />
+        <div className="innerApp">
+          <input
+            type="text"
+            name="restaurant_name"
+            placeholder="restaurant name"
+            value={this.state.restaurant_name}
+            onChange={this.handleChange}
+            list="dataList1"
+          />
 
-        <datalist id="dataList1">
-        {this.state.restaurantList}
-        </datalist>
+          <datalist id="dataList1">{this.state.restaurantList}</datalist>
 
-        <input
-          type="text"
-          name="boro"
-          placeholder="City"
-          value={this.state.boro}
-          onChange={this.handleChange}
-        />
-        <input
-          type="text"
-          name="zipcode"
-          placeholder="Zip Code"
-          value={this.state.zipcode}
-          onChange={this.handleChange}
-        />
+          <input
+            type="text"
+            name="boro"
+            placeholder="City"
+            value={this.state.boro}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="zipcode"
+            placeholder="Zip Code"
+            value={this.state.zipcode}
+            onChange={this.handleChange}
+          />
 
-        <input
-          type="text"
-          name="cuisine_description"
-          placeholder="cuisine"
-          value={this.state.cuisine_description}
-          onChange={this.handleChange}
-        />
+          <input
+            type="text"
+            name="cuisine_description"
+            placeholder="cuisine"
+            value={this.state.cuisine_description}
+            onChange={this.handleChange}
+            list="dataList2"
+          />
 
-        <button onClick={this.handleSubmit}>{"    "}</button>
-        <ul className="list">
-          {this.state.restaurants.map(restaurant => (
-            <li className="container" key={restaurant.camis}>
-              <div>
-                <Link to={`/${restaurant.camis}`}>{restaurant.dba} </Link>
-              </div>
-              <div>
-                {restaurant.building} {restaurant.street}
-              </div>
-              <div>{restaurant.boro}, NY</div>
-              <div>{restaurant.zipcode}</div>
-              <div>{restaurant.cuisine_description}</div>
-            </li>
-          ))}
-        </ul>
+          <datalist id="dataList2">
+            {this.state.cuisine_descriptionList}
+          </datalist>
+
+          <button onClick={this.handleSubmit}>{"    "}</button>
+          <ul className="list-group">
+            {this.state.restaurants.map(restaurant => (
+              <li className="list-group-item" key={restaurant.camis}>
+                <Link to={`/${restaurant.camis}`}>
+                  {restaurant.dba}
+                  <p>
+                    {restaurant.building} {restaurant.street}
+                  </p>
+                  {restaurant.boro}, NY
+                  {restaurant.zipcode}
+                  {restaurant.cuisine_description}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    );
+    )
   }
 }
 

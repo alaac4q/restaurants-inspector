@@ -1,21 +1,16 @@
 import React, { Component } from "react";
-import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
-import Search_Restaurant from "./Search_Restaurant.jsx";
-import ReactDOM from "react-dom";
 import AddNewComment from "./AddNewComment.jsx";
 
 class Check_rest_name extends React.Component {
-  constructor() {
+  constructor(){
     super();
-
     this.state = {
       violations: [],
       restaurantName: [],
       restaurant_id: window.location.href.slice(-8)
-    };
+    }
   }
-  
 
   componentDidMount() {
     this.restaurantDescription();
@@ -32,14 +27,16 @@ class Check_rest_name extends React.Component {
           )}" and critical_flag = "Critical" ORDER BY inspection_date DESC`
       )
       .then(res => {
-        this.setState({ violations: res.data.map(violation => (
-          <li key={violation.camis}>
-            {violation.violation_description} ,
-            {violation.inspection_date} ,
-          </li>
-        )) });
+        this.setState({
+          violations: res.data.map(violation => (
+            <li key={violation.camis}>
+              <div className = "violation_description"> {violation.violation_description} </div>
+              <div className = "violationdate"> {violation.inspection_date.slice(0, 10)} </div>
+            </li>
+          ))
+        });
       });
-  }
+  };
 
   restaurantDescription = () => {
     axios
@@ -49,17 +46,19 @@ class Check_rest_name extends React.Component {
          WHERE camis="${window.location.href.slice(-8)}"`
       )
       .then(res => {
-        this.setState({ restaurantName: res.data.map(rest => (
-          <li key={rest.camis}>
-            {rest.dba}
-            {rest.building} {rest.street} {rest.boro}, NY {rest.zipcode}{" "}
-            {"     "} {rest.cuisine_description}
-          </li>
-        )) });
+        this.setState({
+          restaurantName: res.data.map(rest => (
+            <li className="list-group-item" key={rest.camis}>
+              {rest.dba}
+              <p className="address">
+                {rest.building} {rest.street} {rest.boro}, NY {rest.zipcode}{" "}
+              </p>
+              {"     "} {rest.cuisine_description}
+            </li>
+          ))
+        });
       });
-  }
-
- 
+  };
 
   getCommentToAppear = () => {
     axios
@@ -67,39 +66,37 @@ class Check_rest_name extends React.Component {
       .then(res => {
         this.setState({
           comments: res.data.data.map(comment => (
-            <li>
-              {comment.comment_title} ,
-              {comment.comment},
-              {comment.comment_date}
-            </li>
+            <ul>
+              <li>
+                <div className = "title">{comment.comment_title} </div>
+                <div className = "comment">
+                  <p>{comment.comment}</p>
+                </div>
+                <div className = "date">{comment.comment_date.slice(0, 10)} </div>
+              </li>
+            </ul>
           ))
-        });
+        })
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-
   render() {
     return (
       <div className="App">
-         {this.state.restaurantName}
-      
-        <ul>
-          {this.state.violations}
-        </ul>
-     
+      <div className="AppComAndViolation">
+        <ul className="list-group">{this.state.restaurantName}</ul>
+        <ul className="list-group-violation">{this.state.violations}</ul>
         <AddNewComment
           commentList={this.commentList}
           getCommentToAppear={() => this.getCommentToAppear()}
         />
-        <div>{this.state.comments}</div>;
-
-
-        <Link to="/"> search more restaurants </Link>
+        <div className = "commentList">{this.state.comments}</div>
       </div>
-    );
+      </div>
+    )
   }
 }
 
