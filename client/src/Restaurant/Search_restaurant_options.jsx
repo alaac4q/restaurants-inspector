@@ -37,19 +37,6 @@ class Search_restaurant_options extends React.Component {
       });
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .get(
-  //       "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba"
-  //     )
-  //     .then(res => {
-  //       this.setState({
-  //         cuisine_descriptionList: res.data.map(resturant => (
-  //           <option value={resturant.cuisine_description} />
-  //         ))
-  //       });
-  //     });
-  // }
 
   buildQuery() {
     let add = [];
@@ -90,6 +77,7 @@ class Search_restaurant_options extends React.Component {
     return (
       <div className="App">
         <div className="innerApp">
+        <form>
           <input
             type="text"
             name="restaurant_name"
@@ -122,14 +110,10 @@ class Search_restaurant_options extends React.Component {
             placeholder="cuisine"
             value={this.state.cuisine_description}
             onChange={this.handleChange}
-            // list="dataList2"
           />
 
-          {/* <datalist id="dataList2">
-            {this.state.cuisine_descriptionList}
-          </datalist> */}
-
           <button onClick={this.handleSubmit}>{"    "}</button>
+        </form>
           <ul className="list-group">
             {this.state.restaurants.map(restaurant => (
               <li className="list-group-item" key={restaurant.camis}>
