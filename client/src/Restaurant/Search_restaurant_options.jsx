@@ -99,6 +99,7 @@ class Search_restaurant_options extends React.Component {
   }
 
   handleSubmit = e => {
+    e.preventDefault()
     let query = this.buildQuery();
     axios.get(query).then(res => {
       this.setState({
@@ -111,6 +112,7 @@ class Search_restaurant_options extends React.Component {
     return (
       <div className="App">
         <div className="innerApp">
+        <form onSubmit={this.handleSubmit}>
           <input
             id = "restaurant_name"
             type="text"
@@ -151,6 +153,9 @@ class Search_restaurant_options extends React.Component {
           <datalist id="dataList3">{this.state.cuisineList}</datalist>
 
           <button onClick={this.handleSubmit}>{"    "}</button>
+
+          <button type="submit"> add </button>
+          </form>
           <ul className="list-group">
             {this.state.restaurants.map(restaurant => (
               <li className="list-group-item" key={restaurant.camis}>
