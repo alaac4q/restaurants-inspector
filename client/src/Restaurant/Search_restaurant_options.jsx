@@ -14,7 +14,8 @@ class Search_restaurant_options extends React.Component {
       cuisine_description: "",
       restaurantBoro: [],
       restaurantList:[],
-      cuisine_descriptionList: []
+      cuisine_descriptionList: [],
+      cuisineList:[]
     };
   }
 
@@ -45,6 +46,20 @@ class Search_restaurant_options extends React.Component {
         this.setState({
           restaurantList: res.data.map(resturant => (
             <option value={resturant.dba} />
+          ))
+        });
+      });
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT cuisine_description"
+      )
+      .then(res => {
+        this.setState({
+          cuisineList: res.data.map(resturant => (
+            <option value={resturant.cuisine_description} />
           ))
         });
       });
@@ -108,7 +123,7 @@ class Search_restaurant_options extends React.Component {
             list="dataList2"
           />
           <datalist id="dataList2">{this.state.restaurantBoro}</datalist>
-
+          
           <input
             type="text"
             name="zipcode"
@@ -123,7 +138,9 @@ class Search_restaurant_options extends React.Component {
             placeholder="cuisine"
             value={this.state.cuisine_description}
             onChange={this.handleChange}
+            list="dataList3"
           />
+          <datalist id="dataList3">{this.state.cuisineList}</datalist>
 
           <button onClick={this.handleSubmit}>{"    "}</button>
           <ul className="list-group">
