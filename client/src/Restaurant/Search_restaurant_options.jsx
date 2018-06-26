@@ -112,6 +112,7 @@ class Search_restaurant_options extends React.Component {
       <div className="App">
         <div className="innerApp">
           <input
+            id = "restaurant_name"
             type="text"
             name="restaurant_name"
             placeholder="restaurant name"

@@ -75,6 +75,10 @@ body input {
   transition: width 0.4s ease-out;
 }
 
+#restaurant_name{
+  width: 400px;
+}
+
 body button {
   padding: 12px 20px 12px 40px;
   font-size: 20px;
