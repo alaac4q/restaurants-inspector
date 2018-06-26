@@ -23,7 +23,7 @@ class Search_restaurant_options extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  componentDidMount() {
+  getRestaurantList = () => {
     axios
       .get(
         "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT boro"
@@ -37,7 +37,7 @@ class Search_restaurant_options extends React.Component {
       });
   }
 
-  componentDidMount() {
+  getCuisine_descriptionList = () => {
     axios
       .get(
         "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT dba"
@@ -51,7 +51,7 @@ class Search_restaurant_options extends React.Component {
       });
   }
 
-  componentDidMount() {
+  getCuisineList = () => {
     axios
       .get(
         "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT cuisine_description"
@@ -64,6 +64,13 @@ class Search_restaurant_options extends React.Component {
         });
       });
   }
+
+  componentDidMount(){
+    this.getRestaurantList()
+    this.getCuisine_descriptionList()
+    this.getCuisineList()
+  }
+
 
   buildQuery() {
     let add = [];
