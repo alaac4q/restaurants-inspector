@@ -152,9 +152,8 @@ class Search_restaurant_options extends React.Component {
           />
           <datalist id="dataList3">{this.state.cuisineList}</datalist>
 
-          <button onClick={this.handleSubmit}>{"    "}</button>
-
-          <button type="submit"> add </button>
+          <button type="submit"> Check </button>
+          
           </form>
           <ul className="list-group">
             {this.state.restaurants.map(restaurant => (
