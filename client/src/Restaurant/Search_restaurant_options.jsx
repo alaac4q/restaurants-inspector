@@ -13,6 +13,7 @@ class Search_restaurant_options extends React.Component {
       zipcode: "",
       cuisine_description: "",
       restaurantBoro: [],
+      restaurantList:[],
       cuisine_descriptionList: []
     };
   }
@@ -30,6 +31,20 @@ class Search_restaurant_options extends React.Component {
         this.setState({
           restaurantBoro: res.data.map(resturant => (
             <option value={resturant.boro} />
+          ))
+        });
+      });
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT dba"
+      )
+      .then(res => {
+        this.setState({
+          restaurantList: res.data.map(resturant => (
+            <option value={resturant.dba} />
           ))
         });
       });
@@ -80,7 +95,9 @@ class Search_restaurant_options extends React.Component {
             placeholder="restaurant name"
             value={this.state.restaurant_name}
             onChange={this.handleChange}
+            list="dataList1"
           />
+          <datalist id="dataList1">{this.state.restaurantList}</datalist>
 
           <input
             type="text"
@@ -88,9 +105,9 @@ class Search_restaurant_options extends React.Component {
             placeholder="NYC Boro"
             value={this.state.boro}
             onChange={this.handleChange}
-            list="dataList1"
+            list="dataList2"
           />
-          <datalist id="dataList1">{this.state.restaurantBoro}</datalist>
+          <datalist id="dataList2">{this.state.restaurantBoro}</datalist>
 
           <input
             type="text"
