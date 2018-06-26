@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
-
 class Search_restaurant_options extends React.Component {
   constructor() {
     super();
@@ -13,7 +12,7 @@ class Search_restaurant_options extends React.Component {
       boro: "",
       zipcode: "",
       cuisine_description: "",
-      restaurantsList: [],
+      restaurantBoro: [],
       cuisine_descriptionList: []
     };
   }
@@ -25,18 +24,16 @@ class Search_restaurant_options extends React.Component {
   componentDidMount() {
     axios
       .get(
-        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, dba"
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, boro"
       )
       .then(res => {
-
         this.setState({
-          restaurantList: res.data.map(resturant => (
-            <option value={resturant.dba} />
+          restaurantBoro: res.data.map(resturant => (
+            <option value={resturant.boro} />
           ))
         });
       });
   }
-
 
   buildQuery() {
     let add = [];
@@ -83,18 +80,18 @@ class Search_restaurant_options extends React.Component {
             placeholder="restaurant name"
             value={this.state.restaurant_name}
             onChange={this.handleChange}
-            list="dataList1"
           />
-
-          <datalist id="dataList1">{this.state.restaurantList}</datalist>
 
           <input
             type="text"
             name="boro"
-            placeholder="City"
+            placeholder="NYC Boro"
             value={this.state.boro}
             onChange={this.handleChange}
+            list="dataList1"
           />
+          <datalist id="dataList1">{this.state.restaurantBoro}</datalist>
+
           <input
             type="text"
             name="zipcode"
@@ -129,7 +126,7 @@ class Search_restaurant_options extends React.Component {
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 
