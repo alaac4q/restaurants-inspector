@@ -77,7 +77,6 @@ class Search_restaurant_options extends React.Component {
     return (
       <div className="App">
         <div className="innerApp">
-        <form>
           <input
             type="text"
             name="restaurant_name"
@@ -113,7 +112,6 @@ class Search_restaurant_options extends React.Component {
           />
 
           <button onClick={this.handleSubmit}>{"    "}</button>
-        </form>
           <ul className="list-group">
             {this.state.restaurants.map(restaurant => (
               <li className="list-group-item" key={restaurant.camis}>
