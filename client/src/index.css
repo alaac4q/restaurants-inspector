@@ -5,10 +5,10 @@ body {
   background-color: #fffafa
 }
 
-head h2{
+ body h1{
  font-family: 'Fira Mono';
- margin: auto;
  position: sticky;
+ margin-left: 500px;
 }
 
 .App {
