@@ -24,7 +24,7 @@ class Search_restaurant_options extends React.Component {
   componentDidMount() {
     axios
       .get(
-        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT camis, boro"
+        "https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT DISTINCT boro"
       )
       .then(res => {
         this.setState({
