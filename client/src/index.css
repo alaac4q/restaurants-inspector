@@ -5,9 +5,8 @@ body {
   background-color: #fffafa
 }
 
- body h1{
+.App-title{
  font-family: 'Fira Mono';
- position: sticky;
  margin-left: 500px;
 }
 
