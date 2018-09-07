@@ -3,7 +3,7 @@ Don't Dine & Die is deployed .... https://dont-dine-and-die.herokuapp.com/
 A fullstack web app that allow you to search for restaurants in NYC by name ... zip-code, borough and or cuisine by utilizing NYC Health Inspection grades provided by NYC Open Data API to see restaurant violations and failure reasons.
 
 
-still on progress
+still on progress to add CSS
 
 React Js, Node Js, Postgres SQL
 
