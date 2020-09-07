@@ -22,9 +22,7 @@ class Check_rest_name extends React.Component {
     axios
       .get(
         `https://data.cityofnewyork.us/resource/9w7m-hzhe.json?$query=SELECT dba, building, violation_description, inspection_date 
-          WHERE camis = "${window.location.href.slice(
-            -8
-          )}" and critical_flag = "Critical" ORDER BY inspection_date DESC`
+          WHERE camis = "${window.location.href.slice(-8)}" ORDER BY inspection_date DESC`
       )
       .then(res => {
         this.setState({

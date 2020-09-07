@@ -6,7 +6,6 @@
     "start": "supervisor ./bin/www",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
-
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.18.2",
@@ -26,10 +25,5 @@
     "pg-promise": "^7.5.4",
     "serve-favicon": "~2.4.5",
     "supervisor": "^0.12.0"
-    
   }
 }
-
-
-
- 

@@ -1,7 +1,4 @@
 
-
-
-
 drop table if exists Forum_Comments;
 
 CREATE Table Forum_Comments

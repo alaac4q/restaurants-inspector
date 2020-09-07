@@ -80,7 +80,7 @@ class Search_restaurant_options extends React.Component {
       add.push(`dba= "${this.state.restaurant_name.toUpperCase()}"`);
     }
     if (this.state.boro) {
-      add.push(`boro= "${this.state.boro.toUpperCase()}"`);
+      add.push(`boro= "${this.state.boro}"`);
     }
     if (this.state.zipcode) {
       add.push(`zipcode= "${this.state.zipcode}"`);
