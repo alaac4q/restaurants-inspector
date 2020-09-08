@@ -52,7 +52,7 @@ class Search_Restaurant extends React.Component {
     console.log(this.state.rest)
     return (
       <div className="mainSearch">
-        {/* <input 
+        <input 
           type="text"
           name="restaurant_name"
           value={this.state.restaurant_name}
@@ -60,7 +60,7 @@ class Search_Restaurant extends React.Component {
           onChange={this.handleChange}
         />
 
-        <button onClick={this.handleSubmit}>{"  "}</button> */}
+        <button onClick={this.handleSubmit}>{"  "}</button>
         <ul>
           {this.state.restaurants.map(restaurant => (
             <li className="flex-container" key={restaurant.camis}>
