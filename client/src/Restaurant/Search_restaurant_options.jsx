@@ -95,7 +95,6 @@ class Search_restaurant_options extends React.Component {
     query += add.join(" and ");
 
     return query;
-    console.log(query);
   }
 
   handleSubmit = e => {
